@@ -1,8 +1,7 @@
 import { Table } from "antd"
-import { Row } from "antd"
-import { Col } from "antd"
 import { Typography } from "antd"
 import Text from "antd/lib/typography/Text"
+import { Image } from "antd"
 
 const columns = [
     {
@@ -35,19 +34,20 @@ const columns = [
     {
         title: 'Image',
         dataIndex: 'url',
-        key: 'image',
+        key: 'url',
+        render: (url) => <Image src={url} alt='pokemon' width={150}/>
     },
 ]
 
-const TablePokemons = ({pokemons}) => {
+const TablePokemons = ({pokemons, rows=10}) => {
     return (
-        <Row>
-            <Col xs={24} md={{span:12, offset:6}}>
-                <Table
-                    dataSource={pokemons} columns={columns}
-                />
-            </Col>
-        </Row>
+        <Table
+            dataSource={pokemons} 
+            columns={columns}
+            pagination={{
+                pageSize: rows,
+            }}
+        />
     )
 }
 export default TablePokemons
