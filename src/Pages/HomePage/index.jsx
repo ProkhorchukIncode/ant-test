@@ -5,6 +5,7 @@ import { nanoid } from "nanoid"
 
 import Header from "../../Components/Header"
 import TablePokemons from "../../Components/TablePokemons"
+import ModalUser from "../../Components/ModalUser"
 
 import { Slider } from "antd"
 import { Typography } from "antd"
@@ -13,6 +14,7 @@ import { Col } from "antd"
 
 const HomePage= () => {
     const [rows, setRows] = useState(10)
+    const [openModal, setOpenModal] = useState(false)
     const dispatch = useDispatch()
     const pokemons = useSelector((state)=> state.pokemonsReducer.pokemons)
 
@@ -20,6 +22,17 @@ const HomePage= () => {
         ...el,
         key: nanoid()
     }})
+
+    const onOpenModal = () => {
+        setOpenModal(true)
+    }
+    const handleOk = () => {
+        setOpenModal(false);
+      };
+    
+    const handleCancel = () => {
+        setOpenModal(false);
+    };
     
     useEffect(()=> {
         dispatch(getPokemonThunk())
@@ -27,7 +40,7 @@ const HomePage= () => {
 
     return(
         <>
-            <Header/>
+            <Header onClick={onOpenModal}/>
             <Row>
                 <Col xs={24} md={{span:12, offset:6}}>
                     <Typography.Title level={3}>Quantity</Typography.Title>
@@ -35,6 +48,7 @@ const HomePage= () => {
                     <TablePokemons pokemons={pokemonsWithKeys} rows={rows}/>
                 </Col>
             </Row>
+            <ModalUser visible={openModal} handleOk={handleOk} handleCancel={handleCancel}/>
         </>
     )
 }

@@ -1,7 +1,7 @@
 import { Table } from "antd"
 import { Typography } from "antd"
 import Text from "antd/lib/typography/Text"
-import { Image } from "antd"
+// import { Image } from "antd"
 
 const columns = [
     {
@@ -32,20 +32,21 @@ const columns = [
         onFilter: (value, item) => item.name.includes(value)
     },
     {
-        title: 'Image',
+        title: 'Link',
         dataIndex: 'url',
         key: 'url',
-        render: (url) => <Image src={url} alt='pokemon' width={150}/>
     },
 ]
 
 const TablePokemons = ({pokemons, rows=10}) => {
+
     return (
         <Table
             dataSource={pokemons} 
             columns={columns}
             pagination={{
                 pageSize: rows,
+                position: ['topCenter'],
             }}
         />
     )
